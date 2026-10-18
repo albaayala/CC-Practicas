@@ -43,10 +43,10 @@ Para facilitar el uso de usuarios del sistema, vamos a tener dos tipos:
 - **Auditor**: Quien nos evalúe la seguridad, privacidad y rendimiento (ficticio).
 - **Operador**: Operador que conecte el cliente a la red para acceder al servicio.
 
-  # Diagrama de arquitectura
+# Diagrama de arquitectura
 
-  # Especificación de API REST
-  ## Enpoints para el servicio de login/registro
+# Especificación de API REST
+## Enpoints para el servicio de login/registro
 | Método | Ruta | Descripción | Actores |
 | --- | --- | --- | --- |
 | POST | /api/auth/registro | Registra una nueva empresa y genera al usuario administrador | Cualquiera |
@@ -55,19 +55,22 @@ Para facilitar el uso de usuarios del sistema, vamos a tener dos tipos:
 | GET  | /api/auth/usuarios | Devuelve una lista con los usuarios de la empresa | Administrador |
 | PUT | /api/auth/usuarios | Modificación de los datos asociciados al usuario personal | Administrador o Trabajador |
 
-  ## Enpoints para el servicio de tareas
+## Enpoints para el servicio de tareas
 | Método | Ruta | Descripción | Actores |
 | --- | --- | --- | --- |
 | GET | /api/tipos-tareas | Devuelve el listado de tipos de tareas | Administador, trabajador |
 | POST | /api/tipos-tareas | Crea un nuevo tipo de tarea | Administrador |
 | GET | /api/tareas | Devuelve las tareas asociadas o todas dependiendo del tipo de usuario | Administador, trabajador |
 | GET  | /api/tareas/{id} | Devuelve la información de una tarea | Administrador, trabajador |
+| DELETE  | /api/tareas/{id} | Eliminiar una tarea cread | Administrador |
 | POST | /api/tareas | Crea una nueva tarea | Administrador |
-| PUT  | /api/tareas/{id} | Modifica una tarea | Administrador |
+| PATCH | /api/tareas/{id} | Modifica una tarea | Administrador |
 | POST  | /api/tareas/{id}/iniciar | Inicia una tarea | Administrador, trabajador |
 | POST | /api/tareas/{id}/fin | Finaliza una tarea | Administrador, trabajador |
+| POST  | /api/tareas/{id}/reiniciar | Reinicia una tarea | Administrador, trabajador |
+| POST | /api/tareas/{id}/pausar | Pausar una tarea | Administrador, trabajador |
 
- ## Enpoints para el servicio de estádisticas
+## Enpoints para el servicio de estádisticas
 | Método | Ruta | Descripción | Actores |
 | --- | --- | --- | --- |
 | GET | /api/estadisticas/resumen | Devuelve estadísticas de un periodod de tiempo | Administador |
