@@ -43,4 +43,6 @@ Para facilitar el uso de usuarios del sistema, vamos a tener dos tipos:
 - **Auditor**: Quien nos evalúe la seguridad, privacidad y rendimiento (ficticio).
 - **Operador**: Operador que conecte el cliente a la red para acceder al servicio.
 
-  
+  # Diagrama de arquitectura
+
+  # Especificación de API REST
