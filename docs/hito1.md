@@ -46,3 +46,32 @@ Para facilitar el uso de usuarios del sistema, vamos a tener dos tipos:
   # Diagrama de arquitectura
 
   # Especificación de API REST
+  ## Enpoints para el servicio de login/registro
+| Método | Ruta | Descripción | Actores |
+| --- | --- | --- | --- |
+| POST | /api/auth/registro | Registra una nueva empresa y genera al usuario administrador | Cualquiera |
+| POST | /api/auth/login | Inicia sesión de un usurio registrado | Administrador o trabajador |
+| POST  | /api/auth/usuarios | Crea un nuevo usuario (trabajador) | Administrador |
+| GET  | /api/auth/usuarios | Devuelve una lista con los usuarios de la empresa | Administrador |
+| PUT | /api/auth/usuarios | Modificación de los datos asociciados al usuario personal | Administrador o Trabajador |
+
+  ## Enpoints para el servicio de tareas
+| Método | Ruta | Descripción | Actores |
+| --- | --- | --- | --- |
+| GET | /api/tipos-tareas | Devuelve el listado de tipos de tareas | Administador, trabajador |
+| POST | /api/tipos-tareas | Crea un nuevo tipo de tarea | Administrador |
+| GET | /api/tareas | Devuelve las tareas asociadas o todas dependiendo del tipo de usuario | Administador, trabajador |
+| GET  | /api/tareas/{id} | Devuelve la información de una tarea | Administrador, trabajador |
+| POST | /api/tareas | Crea una nueva tarea | Administrador |
+| PUT  | /api/tareas/{id} | Modifica una tarea | Administrador |
+| POST  | /api/tareas/{id}/iniciar | Inicia una tarea | Administrador, trabajador |
+| POST | /api/tareas/{id}/fin | Finaliza una tarea | Administrador, trabajador |
+
+ ## Enpoints para el servicio de estádisticas
+| Método | Ruta | Descripción | Actores |
+| --- | --- | --- | --- |
+| GET | /api/estadisticas/resumen | Devuelve estadísticas de un periodod de tiempo | Administador |
+| GET | /api/estadisiticas/tipos | Deveulve el tiempo medio y número de tareas por tipo | Administrador |
+| GET | /api/tareas | Devuelve lla carga y el rendimiento de un trabajador | Administador |
+
+
