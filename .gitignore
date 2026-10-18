@@ -1,0 +1,14 @@
+# Variables de entorno y secretos (¡nunca al repositorio público!)
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# Editor y sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
