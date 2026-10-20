@@ -1,7 +1,8 @@
 # Agenda interactiva entre la empresa y sus trabajdores
-**Asignatura**: Cloud Computing.
 
-**Autora**: Alba Ayala.
+Práctica realizada para la asignatura de Cloud Computing, del master de ingeniería de informática de la universidad de  Granada para el curso 20026/2027.
+
+Realizada por Alba Ayala.
 
 ### ¿Qué se va a realizar?
 
@@ -40,6 +41,10 @@ El trabajo se organiza en:
 - **Historias de usuario**: registradas como *Issues* con la etiqueta de *user-story*.
 - **Milestones**: agrupa las historias de usuario por servicio.
 - **Tablero**: con una vista de *board* por estado y otra vista agrupada en tablas por Milestone.
+
+
+### Licencia
+Este proyecto se distribuye bajo la licencia GNU GPL v3.0. Consulta el archivo [LICENSE](LICENSE).
 
 
 
