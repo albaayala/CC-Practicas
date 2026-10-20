@@ -44,8 +44,21 @@ Para facilitar el uso de usuarios del sistema, vamos a tener dos tipos:
 - **Operador**: Operador que conecte el cliente a la red para acceder al servicio.
 
 # Diagrama de arquitectura
+El diagrama de arquitectura es el que se muestra en la siguiente imagen:
+
+![Diagrama de  arquitectura](imgs/DiagramaArquitectura.svg)
+
+Como podemos ver en el, el usuario, mediante un navegador o móvil, realiza funciones que generan peticiones. Estas peticiones las recibe el API Gateway el cual se encarga de validar el token y reenvía el mensaje al servicio correspondiente. De esta forma, cada servicio se encaarga de unas tareas en específico.
+
+El servicio de login, se encarga de gestionar las empresas, usuarios y la autentificación al sistema. En cambio, el servicio de tareas se encarga de gestionar los tipos de tareas y las tareas y el servicio de estádisticas: de calcular y almacenar las estadísticas.
+
+Como vemos en el diagrama, el servicio de tareas, se tiene que comunicar con el servicio de login, para asegurarse que por ejemplo un trabajdor asigando a una tarea exista y sea de la empresa. Además, el servicio de tareas, al cambiar el estado de una tarea (pausada, activa o finlizada) publica un evento en el broker para entregar el evento al servicio de estadisticas, el cual, actuliza su base de datos y calcula las estádisticas.
+
 
 # Especificación de API REST
+
+Comentar, que en todas las rutas que requieran saber el tipo de rol del sistema, deberán llevar en la cabecerá de la petición un token, para que el sistema sepa el rol y la empresa a la que pertenecen.
+
 ## Enpoints para el servicio de login/registro
 | Método | Ruta | Descripción | Actores |
 | --- | --- | --- | --- |
