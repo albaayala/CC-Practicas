@@ -46,7 +46,7 @@ Para facilitar el uso de usuarios del sistema, vamos a tener dos tipos:
 # Diagrama de arquitectura
 El diagrama de arquitectura es el que se muestra en la siguiente imagen:
 
-![Diagrama de  arquitectura](imgs/DiagramaArquitectura.svg)
+![Diagrama de  arquitectura](./imgs/DiagramaArquitectura.svg)
 
 Como podemos ver en el, el usuario, mediante un navegador o móvil, realiza funciones que generan peticiones. Estas peticiones las recibe el API Gateway el cual se encarga de validar el token y reenvía el mensaje al servicio correspondiente. De esta forma, cada servicio se encaarga de unas tareas en específico.
 
