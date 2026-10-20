@@ -8,8 +8,9 @@
 Para esta práctica voy a realizar una agenda para que un administrador de una empresa cree tareas y se las asigne a sus trabajadores. Además de ello, el administrador podrá ver una serie de estádisictcas para que vea la evolución del trabajo.
 
 ### Enlaces a la entrega actual (Hito 1)
-- [Ver documentación del hito 1](docs/hito1.md).
-- [Ver documentación](https://github.com/albaayala/CC-Practicas/issues?q=is%3Aissue+state%3Aopen+label%3Auser-story).
+- [Ver documentación del hito 1](docs/hito1.md)
+- [Ver historias de usuario](https://github.com/albaayala/CC-Practicas/issues?q=is%3Aissue+state%3Aopen+label%3Auser-story)
+- [Ver los tableros](https://github.com/users/albaayala/projects/1)
 
 ### Gestión del proyecto
 
