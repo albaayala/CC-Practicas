@@ -1,6 +1,16 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
-app = FastAPI(title="Servicio Login")
+from app import models
+from app.database import Base, engine
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    Base.metadata.create_all(engine)
+    yield
+
+app = FastAPI(title="Servicio Login", lifespan=lifespan)
 
 @app.get("/health")
 def health():
