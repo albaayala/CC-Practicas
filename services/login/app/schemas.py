@@ -28,14 +28,14 @@ class RegistroRespuesta(BaseModel):
     usuarioId: int
     rol: str
 
-# class Login(BaseModel):
-#     nombreUsuario: NombreUsuario
-#     password: str = Field(min_length=1)
+class Login(BaseModel):
+    nombreUsuario: NombreUsuario
+    password: str = Field(min_length=1)
 
-#     _comprobar_password = field_validator("password")(_validar_password)
+    _comprobar_password = field_validator("password")(_validar_password)
 
-# class LoginRespuesta(BaseModel):
-#     token: str
-#     rol: str
-#     debeCambiarPssword: bool
+class LoginRespuesta(BaseModel):
+    token: str
+    rol: str
+    debeCambiarPassword: bool
 

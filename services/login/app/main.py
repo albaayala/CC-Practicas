@@ -71,4 +71,22 @@ def registro_empresa(datos: schemas.RegistroEmpresa, db: Session=Depends(get_db)
     
     # devolvemos respuesta
     return {"empresaId": empresa.id, "usuarioId": usuario.id, "rol": usuario.rol}
+
+@app.post("/api/auth/login", response_model=schemas.LoginRespuesta, status_code=200)
+def login(datos: schemas.Login, db: Session=Depends(get_db)):
+    # comporbamos exita usuario
+    usuario = db.scalar(
+        select(models.Usuario).where(models.Usuario.nombre_user == datos.nombreUsuario)
+    )
+
+    # comporbamos que la contraseña sea correcta
+    if usuario is None or not security.verificar_password(datos.password, usuario.password_hash):
+        raise HTTPException(status_code=401, detail=mensajes.CREDENCIALES_ERRONEAS)
     
+    # generamos token
+    token = security.crear_token(usuario.id,usuario.empresa_id, usuario.rol)
+    return{
+        "token": token,
+        "rol": usuario.rol,
+        "debeCambiarPassword": usuario.cambiar_password
+    }
