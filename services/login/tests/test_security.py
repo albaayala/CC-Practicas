@@ -1,7 +1,7 @@
 import jwt
 import pytest
-
 from app import security
+
 
 # hash_password no devuelve la contraseña original y acepta la original
 def test_hash_no_guarda_original():
@@ -9,10 +9,12 @@ def test_hash_no_guarda_original():
     assert pass_h != "miClave"
     assert security.verificar_password("miClave", pass_h)
 
+
 # verificar_password rechaza la erronea
 def test_rechaza_pass_icorrecta():
     pass_h = security.hash_password("miClave123")
     assert not security.verificar_password("otraClave", pass_h)
+
 
 # crear token y su lecura decuelve empresa, rol y sub
 def test_token_contiene_elementos():
@@ -21,6 +23,7 @@ def test_token_contiene_elementos():
     assert datos["sub"] == "7"
     assert datos["empresaId"] == 3
     assert datos["rol"] == "ADMIN"
+
 
 #  un token manipulado lanza jwt.InvalidTokenError
 def test_token_manipulado_se_rechaza():
