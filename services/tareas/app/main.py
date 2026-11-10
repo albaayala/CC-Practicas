@@ -7,10 +7,20 @@ from fastapi.responses import JSONResponse
 # from sqlalchemy.exc import IntegrityError
 # from sqlalchemy.orm import Session
 
-# from app import enums, mensajes, models, schemas, security
-# from app.database import Base, engine, get_db
+from app import enums, models
+from app.database import Base, engine, get_db
 
-app = FastAPI(title="Servicio de Tareas")
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    Base.metadata.create_all(engine)
+    yield
+
+app = FastAPI(title="Servicio de Tareas", lifespan=lifespan)
+
+@app.exception_handler(RequestValidationError)
+async def campos_invalidos(_: Request, __: RequestValidationError):
+    return JSONResponse(status_code=400, content={"detail": "Los campos deben estar rellenos"})
+
 
 @app.get("/health")
 def health():
