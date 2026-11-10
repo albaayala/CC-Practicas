@@ -1,0 +1,13 @@
+line-length = 100
+target-version = "py312"
+src = ["services/login", "services/tareas", "services/estadisticas"]
+
+[lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[lint.flake8-bugbear]
+# FastAPI usa Depends() como valor por defecto: es su forma normal de funcionar
+extend-immutable-calls = ["fastapi.Depends"]
+
+[lint.per-file-ignores]
+"**/conftest.py" = ["E402"]
