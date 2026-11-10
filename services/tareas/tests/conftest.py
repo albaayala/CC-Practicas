@@ -1,0 +1,18 @@
+# elementos reutilizables para las pruebas
+import os
+
+import pytest
+from app.database import Base, engine
+from app.main import app
+from fastapi.testclient import TestClient
+
+# 1. Las variables de entorno se fijan antes de importar la app
+os.environ["DATABASE_URL"] = os.environ.get("TEST_DATABASE_URL", "sqlite:///./test.db")
+
+@pytest.fixture()
+def client():
+    # Base de datos limpia para cada prueba
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    with TestClient(app) as c:
+        yield c
