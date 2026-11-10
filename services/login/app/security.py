@@ -23,3 +23,7 @@ def crear_token(usuario_id: int, empresa_id: int, rol: str) -> str:
         "exp": datetime.now(UTC) + DURACION_TOKEN,
     }
     return jwt.encode(payload, config.jwt_secret(), algorithm = ALGORITMO)
+
+
+def decodificar_token(token: str) -> dict:
+    return jwt.decode(token, config.jwt_secret(), algorithms=[ALGORITMO])
