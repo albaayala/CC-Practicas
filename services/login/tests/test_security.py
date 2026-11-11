@@ -1,5 +1,6 @@
 import jwt
 import pytest
+
 from app import security
 
 

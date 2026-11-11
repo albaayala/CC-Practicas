@@ -2,9 +2,10 @@
 import os
 
 import pytest
+from fastapi.testclient import TestClient
+
 from app.database import Base, engine
 from app.main import app
-from fastapi.testclient import TestClient
 
 # 1. Las variables de entorno se fijan antes de importar la app
 os.environ["DATABASE_URL"] = os.environ.get("TEST_DATABASE_URL", "sqlite:///./test.db")
