@@ -5,6 +5,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
 
+# TODO: Tiene en cuenta las horas que no esta pausasa para las estadisticas??
+
 
 class Tarea(Base):
     __tablename__ = "tareas"
@@ -17,6 +19,6 @@ class Tarea(Base):
     trabajador_id: Mapped[int] = mapped_column(index=True)
     inicio_previsto: Mapped[datetime] = mapped_column(DateTime)
     fin_previsto: Mapped[datetime] = mapped_column(DateTime)
-    estado:Mapped[str] = mapped_column(String(200), default="ASIGNADA")
+    estado: Mapped[str] = mapped_column(String(200), default="ASIGNADA")
     inicio_real: Mapped[datetime | None] = mapped_column(DateTime, default=None)
-    fin_real:Mapped[datetime | None] = mapped_column(DateTime, default=None)
+    fin_real: Mapped[datetime | None] = mapped_column(DateTime, default=None)
