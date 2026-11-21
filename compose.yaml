@@ -1,0 +1,99 @@
+services:
+  db-login:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: login
+      POSTGRES_PASSWORD: ${LOGIN_DB_PASSWORD}
+      POSTGRES_DB: login
+    volumes:
+      - login-data:/var/lib/postgresql/data
+    networks:
+      - login-db-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U login -d login"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  login:
+    build: ./services/login
+    environment:
+      DATABASE_URL: postgresql+psycopg://login:${LOGIN_DB_PASSWORD}@db-login:5432/login
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      db-login:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    networks:
+      - login-db-net
+      - servicios
+
+  db-tareas:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tareas
+      POSTGRES_PASSWORD: ${TAREAS_DB_PASSWORD}
+      POSTGRES_DB: tareas
+    volumes:
+      - tareas-data:/var/lib/postgresql/data
+    networks:
+      - tareas-db-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tareas -d tareas"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  tareas:
+    build: ./services/tareas
+    environment:
+      DATABASE_URL: postgresql+psycopg://tareas:${TAREAS_DB_PASSWORD}@db-tareas:5432/tareas
+    depends_on:
+      db-tareas:
+        condition: service_healthy
+    ports:
+      - "8001:8000"
+    networks:
+      - tareas-db-net
+      - servicios
+
+  db-estadisticas:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: estadisticas
+      POSTGRES_PASSWORD: ${ESTADISTICAS_DB_PASSWORD}
+      POSTGRES_DB: estadisticas
+    volumes:
+      - estadisticas-data:/var/lib/postgresql/data
+    networks:
+      - estadisticas-db-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U estadisticas -d estadisticas"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  estadisticas:
+    build: ./services/estadisticas
+    environment:
+      DATABASE_URL: postgresql+psycopg://estadisticas:${ESTADISTICAS_DB_PASSWORD}@db-estadisticas:5432/estadisticas
+    depends_on:
+      db-estadisticas:
+        condition: service_healthy
+    ports:
+      - "8002:8000"
+    networks:
+      - estadisticas-db-net
+      - servicios
+
+volumes:
+  login-data:
+  tareas-data:
+  estadisticas-data:
+
+networks:
+  login-db-net:
+  tareas-db-net:
+  estadisticas-db-net:
+  servicios:
