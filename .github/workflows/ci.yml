@@ -20,7 +20,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      # La versión de ruff sale de requirements-dev.txt: una sola fuente de verdad
       - name: Instalar ruff
         run: pip install "$(grep -i '^ruff==' services/login/requirements-dev.txt)"
 
@@ -75,3 +74,48 @@ jobs:
 
       - name: Pruebas
         run: pytest -v
+  
+  docker:
+    needs: [lint, tests]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write   # En esre caso si necesita esctibir
+    strategy:
+      fail-fast: false
+      matrix:
+        servicio: [login, tareas, estadisticas]
+    steps:
+      - uses: actions/checkout@v7
+
+      # GHCR exige nombres en minúsculas, asi que se pasan los nombres del repo a minuscula
+      - name: Nombre de la imagen en minúsculas
+        run: echo "IMAGEN=ghcr.io/${GITHUB_REPOSITORY,,}-${{ matrix.servicio }}" >> "$GITHUB_ENV"
+
+      - uses: docker/setup-buildx-action@v4
+
+      # Solo se inicia sesión cuando se va a publicar
+      - name: Iniciar sesión en GHCR
+        if: github.event_name == 'push'
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Etiquetas y metadatos
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ env.IMAGEN }}
+          tags: |
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Construir y publicar
+        uses: docker/build-push-action@v7
+        with:
+          context: services/${{ matrix.servicio }}
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
